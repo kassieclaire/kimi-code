@@ -13,6 +13,7 @@ import { promptPlatformSelection, promptLogoutProviderSelection } from '#/tui/co
 import { BannerComponent } from '#/tui/components/chrome/banner';
 import { WelcomeComponent } from '#/tui/components/chrome/welcome';
 import { KimiTUI, type KimiTUIStartupInput, type TUIState } from '#/tui/kimi-tui';
+import { REPLAY_TURN_LIMIT } from '#/tui/utils/message-replay';
 import { copyTextToClipboard } from '#/utils/clipboard/clipboard-text';
 import { quoteShellArg } from '#/utils/shell-quote';
 import {
@@ -286,7 +287,10 @@ describe('KimiTUI startup', () => {
 
     await expect(driver.init()).resolves.toBe(true);
 
-    expect(harness.resumeSession).toHaveBeenCalledWith({ id: 'ses-latest' });
+    expect(harness.resumeSession).toHaveBeenCalledWith({
+      id: 'ses-latest',
+      replayTurnLimit: REPLAY_TURN_LIMIT,
+    });
     expect(harness.createSession).not.toHaveBeenCalled();
     expect(driver.state.startupState).toBe('ready');
     expect(driver.state.appState.sessionId).toBe('ses-latest');
@@ -1474,7 +1478,10 @@ describe('KimiTUI startup', () => {
 
     await expect(driver.init()).resolves.toBe(false);
 
-    expect(harness.resumeSession).toHaveBeenCalledWith({ id: 'ses-latest' });
+    expect(harness.resumeSession).toHaveBeenCalledWith({
+      id: 'ses-latest',
+      replayTurnLimit: REPLAY_TURN_LIMIT,
+    });
     expect(harness.createSession).not.toHaveBeenCalled();
     expect(driver.state.startupState).toBe('ready');
     expect(driver.state.appState.sessionId).toBe('');
@@ -1491,7 +1498,10 @@ describe('KimiTUI startup', () => {
 
     await expect(driver.init()).resolves.toBe(false);
 
-    expect(harness.resumeSession).toHaveBeenCalledWith({ id: 'ses-target' });
+    expect(harness.resumeSession).toHaveBeenCalledWith({
+      id: 'ses-target',
+      replayTurnLimit: REPLAY_TURN_LIMIT,
+    });
     expect(driver.state.startupState).toBe('ready');
     expect(driver.state.appState.sessionId).toBe('');
   });
@@ -1745,7 +1755,10 @@ describe('KimiTUI startup', () => {
       sessionId: 'ses-target',
       workDir: String.raw`C:\Users\kimi\project`,
     });
-    expect(harness.resumeSession).toHaveBeenCalledWith({ id: 'ses-target' });
+    expect(harness.resumeSession).toHaveBeenCalledWith({
+      id: 'ses-target',
+      replayTurnLimit: REPLAY_TURN_LIMIT,
+    });
     expect(driver.state.appState.sessionId).toBe('ses-target');
   });
 });
