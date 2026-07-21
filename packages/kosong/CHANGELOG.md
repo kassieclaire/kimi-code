@@ -1,5 +1,11 @@
 # @moonshot-ai/kosong
 
+## 0.5.5
+
+### Patch Changes
+
+- [#1968](https://github.com/MoonshotAI/kimi-code/pull/1968) [`71bcfba`](https://github.com/MoonshotAI/kimi-code/commit/71bcfba54a6836f4b6d4e26babde67576b293a64) Thanks [@RealKai42](https://github.com/RealKai42)! - Fix sessions getting stuck on every turn with a provider "message must not be empty" error after a content-filtered response.
+
 ## 0.5.4
 
 ### Patch Changes

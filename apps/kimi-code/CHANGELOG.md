@@ -1,5 +1,23 @@
 # @moonshot-ai/kimi-code
 
+## 0.28.2
+
+### Patch Changes
+
+- [#1970](https://github.com/MoonshotAI/kimi-code/pull/1970) [`6dd4fd3`](https://github.com/MoonshotAI/kimi-code/commit/6dd4fd33688b37904d5302436fc2daaf09d66c7d) Thanks [@sailist](https://github.com/sailist)! - Fix cancelled model requests being wrapped as retryable provider errors, so interrupting a request no longer triggers silent retries.
+
+- [#1970](https://github.com/MoonshotAI/kimi-code/pull/1970) [`6dd4fd3`](https://github.com/MoonshotAI/kimi-code/commit/6dd4fd33688b37904d5302436fc2daaf09d66c7d) Thanks [@sailist](https://github.com/sailist)! - Send the session prompt cache key to OpenAI and OpenAI Responses providers, restoring provider-side prompt cache affinity that previously only reached Kimi and Anthropic.
+
+- [#1968](https://github.com/MoonshotAI/kimi-code/pull/1968) [`71bcfba`](https://github.com/MoonshotAI/kimi-code/commit/71bcfba54a6836f4b6d4e26babde67576b293a64) Thanks [@RealKai42](https://github.com/RealKai42)! - Fix sessions getting stuck on every turn with a provider "message must not be empty" error after a content-filtered response.
+
+- [#1990](https://github.com/MoonshotAI/kimi-code/pull/1990) [`115b096`](https://github.com/MoonshotAI/kimi-code/commit/115b0968cefede7fac1494c6f0154ea5545a89da) Thanks [@liruifengv](https://github.com/liruifengv)! - Fix goal mode continuation prompts leaking into the transcript when resuming a session.
+
+- [#1970](https://github.com/MoonshotAI/kimi-code/pull/1970) [`6dd4fd3`](https://github.com/MoonshotAI/kimi-code/commit/6dd4fd33688b37904d5302436fc2daaf09d66c7d) Thanks [@sailist](https://github.com/sailist)! - Rework the model wire layer in the experimental v2 engine into a small set of protocol bases plus declarative provider trait definitions, so adding a provider no longer means copying adapter code, and per-turn request intent (cache key, thinking effort, sampling) flows as request parameters instead of cloned model objects. The never-functional `[platforms]` config section and the `provider.platformId` field are removed; credential resolution is now a two-layer model → provider lookup.
+
+- [#1970](https://github.com/MoonshotAI/kimi-code/pull/1970) [`6dd4fd3`](https://github.com/MoonshotAI/kimi-code/commit/6dd4fd33688b37904d5302436fc2daaf09d66c7d) Thanks [@sailist](https://github.com/sailist)! - Add read-only model resolution inspection and a live connectivity probe to the server's RPC surface, reporting per-field value provenance (config, override, builtin, env, synthesized) for internal debugging tools.
+
+- [#1995](https://github.com/MoonshotAI/kimi-code/pull/1995) [`73eb5f8`](https://github.com/MoonshotAI/kimi-code/commit/73eb5f89e06fb15d42c7585a147eb1c5caef0725) Thanks [@liruifengv](https://github.com/liruifengv)! - Remove red coloring from syntax highlighting in code previews and markdown code blocks.
+
 ## 0.28.1
 
 ### Patch Changes
