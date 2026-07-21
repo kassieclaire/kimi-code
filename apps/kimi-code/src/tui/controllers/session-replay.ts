@@ -10,6 +10,7 @@ import type {
 } from '@moonshot-ai/kimi-code-sdk';
 
 import { ToolCallComponent } from '../components/messages/tool-call';
+import { ReplayTurnBoundaryComponent } from '../components/messages/user-message';
 import { currentTheme } from '../theme';
 import type { TodoItem } from '../components/chrome/todo-panel';
 import type {
@@ -23,6 +24,7 @@ import { formatBackgroundAgentTranscript } from '../utils/background-agent-statu
 import { formatBackgroundTaskTranscript } from '../utils/background-task-status';
 import { buildGoalCompletionMessage } from '../utils/goal-completion';
 import { formatBashOutputForDisplay } from '../utils/shell-output';
+import { markTranscriptComponent } from '../utils/transcript-component-metadata';
 import {
   appStateFromResumeAgent,
   backgroundOrigin,
@@ -321,9 +323,13 @@ export class SessionReplayRenderer {
       // The goal driver's synthetic "continue" prompt is model-facing (the
       // autonomous stand-in for the user typing continue) and is never shown
       // live, so don't render it as a user bubble on replay either. Still
-      // advance the replay turn: each goal round groups under its own turn,
-      // matching how replay trimming counts goal rounds as turns.
+      // advance the replay turn and mount an invisible boundary: each goal
+      // round groups under its own turn, and step/assistant folding can find
+      // the turn edges even though nothing visible was mounted.
       this.advanceTurn(context);
+      const boundary = new ReplayTurnBoundaryComponent();
+      markTranscriptComponent(boundary, replayEntry(context, 'user', '', 'plain'));
+      this.host.state.transcriptContainer.addChild(boundary);
       return;
     }
 
